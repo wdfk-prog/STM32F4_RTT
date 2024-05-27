@@ -27,6 +27,8 @@ extern "C" {
 #include <string.h>
 #include <stdbool.h>
 #include "rtthread.h"
+#include "user_math.h"
+#include "motor.h"
 /* Exported types ------------------------------------------------------------*/
 /**
  * @brief 串口调试结构体

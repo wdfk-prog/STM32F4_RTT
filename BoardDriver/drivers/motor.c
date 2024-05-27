@@ -379,6 +379,30 @@ float walk_motor_get_speed(walk_motor_typeDef* p)
   motor_get_velocity(&speed,p->nodeID);
   return (float)speed / 10;//注意单位为0.1rpm
 }
+/**
+ * @brief   获取节点配置信息
+ * @param  nodeID           
+ * @retval motor_config* 
+ */
+motor_config* nodeID_get_config(motor_config* des,uint8_t nodeID)
+{
+  motor_config *p = des;
+
+  if(des == NULL)
+    return RT_NULL;
+
+  if(nodeID == MASTER_NODEID || nodeID > MAX_NODE_COUNT || nodeID == 0)
+  {
+    return RT_NULL;
+  }
+  else
+  {
+    p->denominator =  slave_conf_get(nodeID - 2)->list->config.denominator;
+    p->numerator = slave_conf_get(nodeID - 2)->list->config.numerator;
+  }
+
+  return p;
+}
 /******************************公共函数******************************************/
 /**
  * @brief  电机初始化线程
